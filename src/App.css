@@ -1,16 +1,17 @@
 section {
   padding: 10px;
   background-color: white;
-  margin: 40px;
-  padding: 10px;
+  margin: 20px;
+  padding-top: 1px;
+  padding-bottom: 2px;
   border-radius: 10px;
   display:block;
-    text-align: center;
+  text-align: center;
 }
 section button {
   display: block;
   width: 20%;
-  height: 15vh;
+  height: 10vh;
   border-radius: 50px;
   background-color: #290a46;
   color: white;
