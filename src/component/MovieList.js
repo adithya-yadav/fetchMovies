@@ -8,9 +8,11 @@ const MovieList = (props) => {
         return (
           <ul  key={movie.id} className="moviesList">
             <Movie
+              id={movie.id}
               title={movie.title}
               releaseDate={movie.releaseDate}
               openingText={movie.openingText}
+              deleteHandler={props.deleteHandler}
             />
           </ul>
         );

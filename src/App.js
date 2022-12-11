@@ -7,6 +7,7 @@ function App() {
   const [load,setLoad] = useState(true)
   const [error,setError] = useState(null)
   const [btn,setBtn] = useState(false)
+
   const titleRef = useRef()
   const openingRef = useRef()
   const dateRef = useRef()
@@ -14,7 +15,7 @@ function App() {
   async function fetchMoviesHandler() {
     try{
       setLoad(false)
-      const res = await fetch("https://swapi.dev/api/films/");
+      const res = await fetch("https://movie-ea7b0-default-rtdb.firebaseio.com/movies.json");
       if(!res.ok){
         setTimeout(()=>{
           setBtn(true)
@@ -22,12 +23,21 @@ function App() {
         throw new Error("SomeThing went wrong... Retrying")
       }
       const data = await res.json();
-      const transformedMovies = data.results.map((movieData) => {
+      const loadedMovies = []
+      for(const key in data){
+        loadedMovies.push({
+          id:key,
+          title:data[key].title,
+          opening:data[key].opening,
+          date:data[key].date,
+        })
+      }
+      const transformedMovies = loadedMovies.map((movieData) => {
         return {
-          id: movieData.episode_id,
+          id: movieData.id,
           title: movieData.title,
-          openingText: movieData.opening_crawl,
-          releaseDate: movieData.release_date,
+          openingText: movieData.opening,
+          releaseDate: movieData.date,
         };
       });
       setLoad(true)
@@ -37,7 +47,23 @@ function App() {
     }
     
   }
-  function onClickAddNote(e){
+
+  async function deleteHandler(id){
+    try{
+        const res =await fetch(`https://movie-ea7b0-default-rtdb.firebaseio.com/movies/${id}.json`, {
+            method: 'DELETE',
+            headers:{
+                "content-type":"application/json"
+              }
+        })
+        fetchMoviesHandler()
+        return res;
+    }catch(err){
+        console.log(err)
+    }
+}
+
+  async function onClickAddNote(){
     const title = titleRef.current.value
     const opening = openingRef.current.value
     const date = dateRef.current.value
@@ -46,9 +72,19 @@ function App() {
       date,
       opening
     }
-    console.log(newMovieObj)
+    const res =await fetch("https://movie-ea7b0-default-rtdb.firebaseio.com/movies.json",{
+      method:"POST",
+      body:JSON.stringify(newMovieObj),
+      headers:{
+        "content-type":"application/json"
+      }
+    })
+    const data = await res.json();
+    fetchMoviesHandler(); 
+    console.log(data)
   }
   useEffect(fetchMoviesHandler,[])
+
   function setErrorHandler(){
     setError(null)
     setLoad(true)
@@ -84,7 +120,7 @@ function App() {
         <div className="input">
           {error && <> <h2>{error}</h2> {btn && <button onClick={setErrorHandler}>Cancel</button>}</>}
           {!load && !error&& <h2>Loading...please wait..</h2>}
-          {load && <MovieList movies={movies} />}
+          {load && <MovieList movies={movies} deleteHandler={deleteHandler}/>}
         </div>
 
     </React.Fragment>
