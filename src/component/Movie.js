@@ -1,5 +1,6 @@
 import "./Movie.css"
 const Movie =(props)=>{
+
     return (
         <li>
             <h2>{props.title}</h2>

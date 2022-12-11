@@ -1,23 +1,66 @@
-section {
-  padding: 10px;
-  background-color: white;
-  margin: 20px;
-  padding-top: 1px;
-  padding-bottom: 2px;
+
+
+.input {
+  margin: 2rem auto;
+  padding: 1rem;
+  width: 90%;
+  max-width: 40rem;
+  background: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
   border-radius: 10px;
-  display:block;
-  text-align: center;
+  position: relative;
+
 }
-section button {
+
+.input label {
   display: block;
-  width: 20%;
-  height: 10vh;
-  border-radius: 50px;
-  background-color: #290a46;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.input input {
+  font: inherit;
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 0.15rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px ;
+}
+.input textarea {
+  resize: none;
+  font: inherit;
+  display: block;
+  width: 100%;
+  border: 1px solid #ccc;
+  padding: 0.15rem;
+  margin-bottom: 0.5rem;
+  border-radius: 10px ;
+  width:100%;
+  height:50vh;
+}
+
+.input input:focus {
+  outline: none;
+  border-color: #4f005f;
+}
+button {
+  font: inherit;
+  border: 1px solid #4f005f;
+  background: #4f005f;
   color: white;
-  padding: 14px 28px;
-  font-size: 16px;
+  padding: 1rem 3rem;
   cursor: pointer;
-  text-align: center;
-  margin: 50px;
+  border-radius: 40px;
+  justify-content: center;
+}
+
+button:hover,
+button:active {
+  background: #741188;
+  border-color: #741188;
+}
+
+button:focus {
+  outline: none;
 }
