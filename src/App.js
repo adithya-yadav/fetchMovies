@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import MovieList from "./component/MovieList";
 import "./App.css";
 
@@ -7,10 +7,11 @@ function App() {
   const [load,setLoad] = useState(true)
   const [error,setError] = useState(null)
   const [btn,setBtn] = useState(false)
+  
   async function fetchMoviesHandler() {
     try{
       setLoad(false)
-      const res = await fetch("https://swapi.dev/api/film/");
+      const res = await fetch("https://swapi.dev/api/films/");
       if(!res.ok){
         setTimeout(()=>{
           setBtn(true)
@@ -33,6 +34,7 @@ function App() {
     }
     
   }
+  useEffect(fetchMoviesHandler,[])
   function setErrorHandler(){
     setError(null)
     setLoad(true)
